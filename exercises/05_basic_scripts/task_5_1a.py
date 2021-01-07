@@ -44,3 +44,9 @@ london_co = {
         "routing": True,
     },
 }
+
+device=input("Input device name - r1,r2,sw1: ")
+datatype = input("Input location, vendor, model, ios or ip: ")
+
+
+print(london_co[device][datatype])

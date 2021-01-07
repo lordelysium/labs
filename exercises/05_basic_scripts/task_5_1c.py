@@ -49,3 +49,17 @@ london_co = {
         "routing": True,
     },
 }
+
+devicename=input("Input devicename (" + ', '.join(london_co.keys()) + ") :")
+#input("text")
+#test = "Input devicename (" + JOIN + ") :")
+#JOIN='разделитель'.join(список.keys())
+
+
+param=input("Input param (" + ' ,'.join(london_co[devicename].keys()) + ") :")
+
+print(london_co[devicename].get(param, 'not exists'))
+
+
+
+
