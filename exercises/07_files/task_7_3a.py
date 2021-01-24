@@ -24,3 +24,14 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+config_table=[]
+with open ('CAM_table.txt', 'r') as source:
+    for line in source:
+        items=line.split()
+        if items and items[0].isdigit():
+            vlan, mac, _, interface = items
+            #print(f'{vlan:5}{mac:15}{interface}')
+            config_table.append([int(vlan), mac, interface])
+            #print(config_table)
+for vlan, mac, interface in sorted(config_table):
+    print(f'{vlan:<5}{mac:15}{interface}')

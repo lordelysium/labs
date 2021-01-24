@@ -2,7 +2,7 @@
 """
 Задание 7.2
 
-Создать скрипт, который будет обрабатывать конфигурационный файл config_sw1.txt:
+Создать скрипт, который будет обрабатывать конфигурационный файл :
 - имя файла передается как аргумент скрипту
 
 Скрипт должен возвращать на стандартный поток вывода команды из переданного
@@ -40,3 +40,12 @@ interface Ethernet0/3
 ...
 
 """
+#!/usr/bin/env python3
+
+from sys import argv
+
+filename=argv[1]
+with open (filename) as file:
+    for line in file:
+        if not line.startswith('!'):
+            print(line.rstrip())

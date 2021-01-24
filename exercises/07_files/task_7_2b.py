@@ -13,4 +13,24 @@
 
 """
 
-ignore = ["duplex", "alias", "Current configuration"]
+from sys import argv
+
+filename_input=argv[1]
+
+
+ignorelist = ["duplex", "alias", "Current configuration"]
+
+with open (filename_input) as source, open ('config_sw1_cleared.txt', 'w') as output:
+    for line in source:
+        skipfile = False
+        for ignore in ignorelist:
+            if ignore in line:
+                skipfile = True
+                break
+        #if not line.startswith('!') and not skipfile:
+            #print(line.rstrip())
+
+        if not skipfile:
+            output.write(line)
+
+print("Done!")

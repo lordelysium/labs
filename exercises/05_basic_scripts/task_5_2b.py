@@ -1,4 +1,4 @@
-#!/usrbin/env python35
+#!/usrbin/env python36
 # -*- coding: utf-8 -*-
 """
 Задание 5.2b

@@ -16,4 +16,24 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
 
-ignore = ["duplex", "alias", "Current configuration"]
+from sys import argv
+
+filename_input=CAM_table.txt
+
+
+ignorelist = ["duplex", "alias", "Current configuration"]
+
+with open (filename_input) as source
+    for line in source:
+        skipfile = False
+        for ignore in ignorelist:
+            if ignore in line:
+                skipfile = True
+                break
+        #if not line.startswith('!') and not skipfile:
+            #print(line.rstrip())
+
+        if not skipfile:
+            output.write(line)
+
+print("Done!")

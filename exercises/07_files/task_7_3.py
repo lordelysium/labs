@@ -17,3 +17,21 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+"""
+with open ('CAM_table.txt', 'r') as source:
+    for line in source:
+        line=line.replace('-','')
+        linesplit=list(set(line.split(' ')))
+        for item in linesplit:
+            if len(item) == 14:
+                print(line)
+            #if mac == True:
+                #print(line)
+"""
+with open ('CAM_table.txt', 'r') as source:
+    for line in source:
+        items=line.split()
+        if items and items[0].isdigit():
+            vlan, mac, _, interface = items
+            print(f'{vlan:5}{mac:15}{interface}')
+
