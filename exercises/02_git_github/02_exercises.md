@@ -2,15 +2,13 @@
 
 ### Задание 2.1
 
-Клонировать [репозиторий с заданиями и примерами](https://github.com/natenka/pyneng-examples-exercises).
+В этом задании необходимо:
 
+* создать свой репозиторий для выполнения заданий на GitHub
+* клонировать его на свою виртуалку/хост
 
-### Задание 2.2
+Создать свой репозиторий на основе шаблона [репозиторий с заданиями и примерами](https://github.com/natenka/pyneng-examples-exercises).
 
-https://github.com/lordelysium
+> [Как создать репозиторий на основе шаблона](https://pyneng.readthedocs.io/ru/latest/book/02_git_github/git_github_changes.html).
 
-* обновляете [репозиторий с заданиями и примерами (pyneng-examples-exercises)](https://github.com/natenka/pyneng-examples-exercises)
-* копируете задания одного раздела из репозитория pyneng-examples-exercises в свой репозиторий
-* выполняете задания
-* при переходе к следующему разделу, повторяете все с начала
 

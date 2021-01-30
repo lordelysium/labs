@@ -2,26 +2,17 @@
 """
 Задание 4.1
 
-Используя подготовленную строку nat, получить новую строку, в которой
-в имени интерфейса вместо FastEthernet написано GigabitEthernet.
+Используя подготовленную строку nat, получить новую строку, в которой в имени
+интерфейса вместо FastEthernet написано GigabitEthernet.
+Полученную новую строку вывести на стандартный поток вывода (stdout) с помощью print.
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
-nat = "ip nat inside source list ACL interface FastEthernet0/1 overload"
-"""
+Предупреждение: в разделе 4 тесты можно легко "обмануть" сделав нужный вывод,
+без получения результатов из исходных данных с помощью Python.
+Это не значит, что задание сделано правильно, просто на данном этапе сложно иначе
+проверять результат.
 
-"""
-nat = "ip nat inside source list ACL interface FastEthernet0/1 overload"
-print(nat)
-commands=nat.split()
-interface=commands.index('FastEthernet0/1')
-commands[interface]='GigabitEthernet0/1'
-nat = ' '.join(commands)
-print(nat)
 """
 
 nat = "ip nat inside source list ACL interface FastEthernet0/1 overload"
-print(nat)
-nat = nat.replace('Fast','Gigabit')
-print(nat)
-
