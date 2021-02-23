@@ -47,31 +47,35 @@ access_config_2 и убедиться, что в итоговом списке �
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-
 access_mode_template = [
     "switchport mode access",
     "switchport access vlan",
     "switchport nonegotiate",
     "spanning-tree portfast",
-    "spanning-tree bpduguard enable",
-]
+    "spanning-tree bpduguard enable",]
 
-access_config = {"FastEthernet0/12": 10, "FastEthernet0/14": 11, "FastEthernet0/16": 17}
+access_config_1 = {"FastEthernet0/12": 10, "FastEthernet0/14": 11, "FastEthernet0/16": 17}
 
 access_config_2 = {
     "FastEthernet0/03": 100,
     "FastEthernet0/07": 101,
-    "FastEthernet0/09": 107,
-}
+    "FastEthernet0/09": 107,}
+
+def generate_access_config(intf_vlan_mapping, access_template, result_list=None):
+    result_list=[]
+    for interface, vlan in intf_vlan_mapping.items():
+        result='interface ' + interface
+        result_list.append(result)
+        for command in access_template:
+            if command.endswith('vlan') is True:
+                result=command + ' ' + str(vlan)
+                result_list.append(result)
+            else:
+                result=command
+                result_list.append(result)
+    return result_list
+
+stringsall=generate_access_config(access_config_1 , access_mode_template )
+print(stringsall)
 
 
-def generate_access_config(intf_vlan_mapping, access_template):
-    """
-    intf_vlan_mapping - словарь с соответствием интерфейс-VLAN такого вида:
-        {'FastEthernet0/12':10,
-         'FastEthernet0/14':11,
-         'FastEthernet0/16':17}
-    access_template - список команд для порта в режиме access
-
-    Возвращает список всех портов в режиме access с конфигурацией на основе шаблона
-    """

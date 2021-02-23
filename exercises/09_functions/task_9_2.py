@@ -60,3 +60,25 @@ trunk_config_2 = {
     "FastEthernet0/15": [111, 130],
     "FastEthernet0/14": [117],
 }
+
+
+def generate_access_config(trunk_config, trunk_template, result_list=None):
+    result_list=[]
+    for interface, vlan in trunk_config.items():
+        result='interface ' + interface
+        result_list.append(result)
+        for command in trunk_template:
+            if command.endswith('vlan') is True:
+                result=command + ' ' + ' '.join(str(vlans) for vlans in vlan)
+                result_list.append(result)
+            else:
+                result=command
+                result_list.append(result)
+    return result_list
+
+print (generate_access_config(trunk_config_2, trunk_mode_template, result_list=None))
+
+
+
+
+

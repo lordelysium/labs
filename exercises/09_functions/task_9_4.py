@@ -48,19 +48,31 @@
 ignore = ["duplex", "alias", "configuration"]
 
 
-def ignore_command(command, ignore):
-    """
-    Функция проверяет содержится ли в команде слово из списка ignore.
 
-    command - строка. Команда, которую надо проверить
-    ignore - список. Список слов
 
-    Возвращает
-    * True, если в команде содержится слово из списка ignore
-    * False - если нет
-    """
-    ignore_status = False
+
+def ignore_command(command):
     for word in ignore:
         if word in command:
             ignore_status = True
     return ignore_status
+
+
+def convert_config_to_dict(config_filename, ignore=None):
+    with open(config_filename,'r') as config:
+        config_dict={}
+        ignore_status = False
+        command='EMPTY'
+        subcommand='EMPTY'
+        for line in config:
+            line=line.replace('!', ' ').rstrip()
+            #print(line)
+
+            if not line.startswith(' '):
+                command=line
+            else:
+                subcommand=line
+                config_dict[command]=subcommand
+        return config_dict
+
+print(convert_config_to_dict('config_r1.txt'))

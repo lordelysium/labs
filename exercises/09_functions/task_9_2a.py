@@ -27,3 +27,23 @@ trunk_config = {
     "FastEthernet0/2": [11, 30],
     "FastEthernet0/4": [17],
 }
+
+def generate_access_config(trunk_config, trunk_template, result_list=None, result_dict=None):
+    result_list=[]
+    result_dict={}
+    for interface, vlan in trunk_config.items():
+        interface_com='interface ' + interface
+        result_list=[]
+        for command in trunk_template:
+            if command.endswith('vlan') is True:
+                result=command + ' ' + ' '.join(str(vlans) for vlans in vlan)
+                result_list.append(result)
+            else:
+                result=command
+                result_list.append(result)
+        result_dict[interface_com]=result_list
+    return result_dict
+    #return result_list
+
+
+print (generate_access_config(trunk_config, trunk_mode_template ))
