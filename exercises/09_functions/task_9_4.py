@@ -47,32 +47,29 @@
 
 ignore = ["duplex", "alias", "configuration"]
 
-
-
-
-
-def ignore_command(command):
+def ignore_command(command, ignore):
+    ignore_status = False
     for word in ignore:
         if word in command:
             ignore_status = True
     return ignore_status
 
 
-def convert_config_to_dict(config_filename, ignore=None):
+def convert_config_to_dict(config_filename):
+    config_dict={}
     with open(config_filename,'r') as config:
-        config_dict={}
-        ignore_status = False
-        command='EMPTY'
-        subcommand='EMPTY'
         for line in config:
-            line=line.replace('!', ' ').rstrip()
-            #print(line)
+            line=line.rstrip()
+            if line and not (line.startswith('!') or line.startswith(' !') or ignore_command(line, ignore)):
+                if not line.startswith(' '):
+                    maincommand=line.strip()
+                    config_dict[maincommand] = []
+                else:
+                    subcommand=line.strip()
+                    config_dict[maincommand].append(subcommand)
 
-            if not line.startswith(' '):
-                command=line
-            else:
-                subcommand=line
-                config_dict[command]=subcommand
+
         return config_dict
+
 
 print(convert_config_to_dict('config_r1.txt'))

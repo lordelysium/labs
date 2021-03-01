@@ -61,7 +61,7 @@ access_config_2 = {
     "FastEthernet0/07": 101,
     "FastEthernet0/09": 107,}
 
-def generate_access_config(intf_vlan_mapping, access_template, result_list=None):
+def generate_access_config(intf_vlan_mapping, access_template):
     result_list=[]
     for interface, vlan in intf_vlan_mapping.items():
         result='interface ' + interface
@@ -77,5 +77,4 @@ def generate_access_config(intf_vlan_mapping, access_template, result_list=None)
 
 stringsall=generate_access_config(access_config_1 , access_mode_template )
 print(stringsall)
-
 

@@ -40,7 +40,7 @@ def get_int_vlan_map(config_filename):
             elif 'trunk allowed' in line:
                 trunk_dict[interface]=[int(v) for v in line.split()[-1].split(',')]
                 #print(trunk_vlans.split(','))
-        return trunk_dict, access_dict
+        return access_dict, trunk_dict
 
 
 print (get_int_vlan_map('config_sw1.txt'))

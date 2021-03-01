@@ -27,23 +27,22 @@
 """
 
 def get_int_vlan_map(config_filename):
+    trunk_dict={}
+    access_dict={}
     with open(config_filename,'r') as config:
-        trunk_dict={}
-        access_dict={}
         for line in config:
             line=line.rstrip()
             if line.startswith('interface FastEthernet'):
                 current_interface=line.split()[1]
                 access_dict[current_interface]=1
-            elif 'switchport access vlan' in line:
+            elif 'access vlan' in line:
                 access_dict[current_interface]=int(line.split()[-1])
-                #print(access_vlans)
             elif 'switchport trunk allowed vlan' in line:
                 vlans=[int(v) for v in line.split()[-1].split(',')]
                 trunk_dict[current_interface]=vlans
-                #print(trunk_vlans.split(','))
                 del access_dict[current_interface]
-        return trunk_dict, access_dict
+        return  access_dict,trunk_dict
 
 
-print (get_int_vlan_map('config_sw2.txt'))
+
+print(get_int_vlan_map('config_sw2.txt'))

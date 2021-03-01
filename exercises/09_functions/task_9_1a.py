@@ -50,7 +50,7 @@ intf_vlan_mapping = access_config
 access_template = access_mode_template
 psecurity = port_security_template
 
-def generate_access_config(intf_vlan_mapping, access_template, psecurity=None, result_list=None):
+def generate_access_config(intf_vlan_mapping, access_template, psecurity=None):
     result_list=[]
     for interface, vlan in intf_vlan_mapping.items():
         result='interface ' + interface
