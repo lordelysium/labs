@@ -73,6 +73,9 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+from task_11_2 import create_network_map
+from pprint import pprint
+from draw_network_graph import draw_topology
 
 infiles = [
     "sh_cdp_n_sw1.txt",
@@ -80,3 +83,33 @@ infiles = [
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+'''
+topology_dict = {('SW1', 'Eth0/1'): ('R1', 'Eth0/0'),
+('SW1', 'Eth0/2'): ('R2', 'Eth0/0'),
+('SW1', 'Eth0/3'): ('R3', 'Eth0/0'),
+('SW1', 'Eth0/5'): ('R6', 'Eth0/1'),
+('R1', 'Eth0/0'): ('SW1', 'Eth0/1'),
+('R2', 'Eth0/0'): ('SW1', 'Eth0/2'),
+('R2', 'Eth0/1'): ('SW2', 'Eth0/11'),
+('R3', 'Eth0/0'): ('SW1', 'Eth0/3'),
+('R3', 'Eth0/1'): ('R4', 'Eth0/0'),
+('R3', 'Eth0/2'): ('R5', 'Eth0/0')}
+network_map = {}
+'''
+
+
+
+
+def unique_network_map(topology_dict):
+    topology_dict = create_network_map(topology_dict)
+    network_map={}
+    #print(topology_dict)
+    for key, value in topology_dict.items():
+        if not network_map.get(value)==key:
+            network_map[key]=value
+    return network_map
+
+
+
+network_map=unique_network_map(infiles)
+draw_topology(network_map)

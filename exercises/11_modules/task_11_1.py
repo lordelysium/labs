@@ -36,13 +36,17 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 
 def parse_cdp_neighbors(command_output):
-    """
-    Тут мы передаем вывод команды одной строкой потому что именно в таком виде будет
-    получен вывод команды с оборудования. Принимая как аргумент вывод команды,
-    вместо имени файла, мы делаем функцию более универсальной: она может работать
-    и с файлами и с выводом с оборудования.
-    Плюс учимся работать с таким выводом.
-    """
+        result={}
+        for line in command_output.split("\n"):
+            line=line.strip()
+            column=line.split()
+            if '>' in line:
+                host=line.split('>')[0]
+            elif len(column)>=5 and column[3].isdigit():
+                neighbor, host_int_type, host_int_num, *other, neighbor_int_type, neighbor_int_num, = column
+                result[(host, host_int_type + host_int_num)] = (neighbor, neighbor_int_type + neighbor_int_num)
+        return result
+
 
 
 if __name__ == "__main__":

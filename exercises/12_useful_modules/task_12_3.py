@@ -18,3 +18,26 @@ Reachable    Unreachable
              10.1.1.9
 
 """
+
+from tabulate import tabulate
+from task_12_1 import ping_ip_addresses
+from task_12_2 import convert_ranges_to_ip_list
+
+def print_ip_table(reach, unreach):
+    table = {"Reachable": reach, "Unreachable": unreach}
+    tabulated_table=tabulate(table, headers='keys')
+    print(table)
+    return tabulated_table
+
+
+
+
+
+if __name__ == "__main__":
+    input_str = input('Введите адреса(,): ')
+    input_list = [i.strip() for i in input_str.split(',')]
+    list_of_ips=(convert_ranges_to_ip_list(input_list))
+    reach, unreach = ping_ip_addresses(list_of_ips)
+    print(print_ip_table(reach, unreach))
+
+
