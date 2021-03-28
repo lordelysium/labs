@@ -30,14 +30,14 @@ filename='config_r1.txt'
 
 
 def get_ip_from_cfg (filename):
-    ip_mac_list=[]
+    ip_mask_list=[]
     file=open(filename, 'r')
     for line in file:
         line=line.strip()
-        ip_mac=re.match(r'ip address (\S+) (\S+)', line)
-        if ip_mac != None:
-            ip_mac_list.append(ip_mac.group(1, 2))
-    return ip_mac_list        
+        ip_mask=re.match(r'ip address (\S+) (\S+)', line)
+        if ip_mask != None:
+            ip_mask_list.append(ip_mask.group(1, 2))
+    return ip_mask_list        
             
 
 if __name__ == "__main__":

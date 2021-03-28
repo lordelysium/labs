@@ -24,3 +24,28 @@
 а не ввод пользователя.
 
 """
+import re 
+
+#filename=input('Введите название файла(config_r1.txt):')
+filename='config_r1.txt'
+
+
+def get_ip_from_cfg (filename):
+    ip_mask_dict={}
+    file=open(filename, 'r')
+    for line in file:
+        line=line.strip()
+        interface_check=re.match(r'interface (\S+)', line)
+        ip_mask=re.match(r'ip address (\S+) (\S+)', line)
+        if interface_check != None:
+            interface=interface_check.group(1)
+        if ip_mask != None and interface != None:
+            ip_mask_dict[interface]=ip_mask.group(1, 2)
+    return ip_mask_dict        
+            
+
+if __name__ == "__main__":
+    list_cort=get_ip_from_cfg (filename)
+    print(list_cort)
+
+
