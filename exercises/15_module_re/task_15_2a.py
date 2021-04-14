@@ -34,3 +34,20 @@ data = [
     ("R2", "15.2(2)T1", "Cisco 2911"),
     ("SW1", "12.2(55)SE9", "Cisco WS-C2960-8TC-L"),
 ]
+
+
+def convert_to_dict(headers, data):
+    dict_result=[]    
+    for data_tup in data:
+        final=dict(zip(headers, data_tup))
+        dict_result.append(final)
+    return dict_result
+ 
+    
+ # def convert_to_dict(headers, sh_list):
+ #    return [dict(zip(headers, i)) for i in sh_list]
+
+
+a=convert_to_dict(headers, data)
+print(a)
+    
