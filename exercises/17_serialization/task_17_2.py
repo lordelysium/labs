@@ -40,12 +40,50 @@
 на sh_vers. Вы можете раскомментировать строку print(sh_version_files),
 чтобы посмотреть содержимое списка.
 
-Кроме того, создан список заголовков (headers), который должен быть записан в CSV.
+# Кроме того, создан список заголовков (headers), который должен быть записан в CSV.
 """
-
+import re
 import glob
+import csv
 
-sh_version_files = glob.glob("sh_vers*")
-# print(sh_version_files)
 
-headers = ["hostname", "ios", "image", "uptime"]
+def parse_sh_version(sh_ver_output):
+    #print(sh_ver_output)
+    ios, image, uptime = "0", "0" ,"0" 
+    regex=(r'Version (?P<ios>\S+), .*'
+       r'uptime is (?P<uptime>\S+ +\S+ \S+ \S+ \S+ \S+)\n.*'
+       r'image file is "(?P<image>\S+)".*'
+       )
+    match = re.search(regex, sh_ver_output, re.DOTALL)
+    if match:
+       return match.group(1,3,2)
+   
+    
+def write_inventory_to_csv(filenames, output):
+    headers = ["hostname", "ios", "image", "uptime"]
+    result_list=[]
+    result_list.append(headers)
+    for filename in filenames:
+        hostname=re.search((r'_\S+_(\S+).txt'), filename).groups()
+        with open(filename) as file_txt:
+              result=list(hostname) + list(parse_sh_version(file_txt.read()))
+              result_list.append(result)
+    with open(output, "w") as file_out:
+        writer = csv.writer(file_out, quoting=csv.QUOTE_NONNUMERIC)
+        for row in result_list:
+            writer.writerow(row)
+    
+    
+   
+    
+if __name__ == "__main__": 
+    sh_version_files = glob.glob("sh_vers*")
+    print(sh_version_files)
+    
+    
+    filenames=sh_version_files
+    output="routers_inventory.csv"
+    write_inventory_to_csv(filenames, output)
+    
+    
+    

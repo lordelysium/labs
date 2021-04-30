@@ -36,3 +36,45 @@
 в файл topology.yaml. Он понадобится в следующем задании.
 
 """
+import re
+import glob
+import yaml
+from pprint import pprint
+
+
+def generate_topology_from_cdp(list_of_files, save_to_filename=None):
+    all_result={}
+    for file in list_of_files:
+        with open(file) as txt_file:
+            input_from_file=txt_file.read()
+            device_result={}
+            device_dict={}
+            hostname=re.search((r'(?P<hostname>\S+)>'), input_from_file).group('hostname')
+            regex =(r"(?P<dev_id>\w+)  +(?P<local_int>\S+ \S+)"
+                    r" +\d+  +[\w ]+  +\S+ +(?P<port_id>\S+ \S+)")
+            result=re.findall(regex, input_from_file)
+            for match in result:
+                dev_id, local_int , port_id = match
+                device_id={}
+                device_id[dev_id]=port_id
+                device_dict[local_int] = device_id
+        all_result[hostname] = device_dict
+    if save_to_filename:    
+        with open(save_to_filename, 'w') as yaml_file:        
+            yaml.dump(all_result, yaml_file, default_flow_style=False)
+    return all_result    
+    
+  
+   
+if __name__ == "__main__":
+    sh_cdp_n_files = glob.glob("sh_cdp_n_*")
+        
+    list_of_files=sh_cdp_n_files
+    save_to_filename="topology.yaml"
+    generate_topology_from_cdp(list_of_files, save_to_filename)
+           
+    with open(save_to_filename) as yaml_file:        
+        print(yaml_file.read())    
+
+ 
+          
